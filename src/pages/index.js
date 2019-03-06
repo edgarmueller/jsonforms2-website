@@ -1,21 +1,140 @@
-import React from "react"
-import { Link } from "gatsby"
+import * as React from "react";
+import { Link } from 'gatsby';
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import withStyles from "@material-ui/core/styles/withStyles";
+
+import FeaturesIcon from '@material-ui/icons/Report';
+import CustomizeIcon from '@material-ui/icons/Brush';
+import AddIcon from '@material-ui/icons/Add';
+import {JsonForms} from '@jsonforms/react'
+import corePackageJson from '@jsonforms/core/package'
+import {Provider} from 'react-redux';
+import schema from './index/schema.json';
+import uischema from './index/uischema.json';
+import reactLogo from './index/react-logo.svg';
+import reduxLogo from './index/reduxLogo.svg';
+import angularLogo from './index/angular.svg';
 
 import Layout from "../components/layout"
-import Image from "../components/image"
+import {Demo, Logo} from '../common'
+import {createJsonFormsStore} from "../common/store";
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+const styles = () => ({
+  logo: {
+    textAlign: 'center',
+    marginTop: '0.5em',
+    paddingBottom: '0.5em',
+    fontSize: '2em',
+  },
+  icon: {
+    width: 'auto',
+    height: '6em',
+    padding: 9,
+  },
+  schemaLogo: {
+    padding: '18px',
+    height: '108px',
+    width: '108px',
+  },
+  gettingStartedButton: {
+    margin: '1em'
+  }
+});
 
-export default IndexPage
+const store = createJsonFormsStore({
+  data: { firstName: 'Max Power' },
+  schema,
+  uischema
+});
+
+const Home = ({ classes }) => {
+  return (
+  <Layout>
+    <SEO title="Home" keywords={[`jsonschema`, `json`, `react`, `forms`]} />
+      <div className={classes.logo}>
+        <Typography variant='h2'>
+          <strong>JSON</strong>Forms
+        </Typography>
+        <div style={{ paddingTop: '0.5em'}}>
+          <Logo/>
+        </div>
+        <Typography variant='h5'>
+          More forms. Less code.
+        </Typography>
+      </div>
+
+      <div className='feature'>
+        <Typography variant='h6' style={{ color: '#747474' }}>
+          Complex forms in the blink of an eye
+        </Typography>
+      </div>
+      <div className='feature'>
+        <Typography>
+          Version {corePackageJson.version}
+        </Typography>
+      </div>
+
+      <div className='feature'>
+        <Link
+          to='/docs/getting-started'
+          className='link'
+        >
+          <Button variant='outlined' className={classes.gettingStartedButton}>
+            Get started
+          </Button>
+        </Link>
+      </div>
+
+      <div className='landing-page__features'>
+        <div className='feature'>
+          <div alt='JSON Schema Logo' className={[classes.schemaLogo, 'schema-logo'].join(' ')}/>
+          <p className='landing_page__detail'>
+            Declare your forms as JSON based on a JSON Schema
+          </p>
+        </div>
+
+        <div className='feature'>
+          <FeaturesIcon className={[classes.icon, 'icon'].join(' ')}/>
+          <p className='landing_page__detail'>
+            Fully-featured forms including data-binding, input validation, and rule-based visibility
+            out-of-the-box
+          </p>
+        </div>
+
+        <div className='feature'>
+          <CustomizeIcon className={[classes.icon, 'icon'].join(' ')}/>
+          <p className='landing_page__detail'>
+            Designed for customizability from custom styling to custom widgets
+          </p>
+        </div>
+      </div>
+
+      <div className='landing-page__description'>
+        <div className='landing-page__logos'>
+          <img src={reduxLogo} alt="Redux logo" style={{ height: '80px' }}/>
+          <AddIcon/>
+          <img src={reactLogo} alt="React logo" style={{ height: '80px', width: '80px' }}/>
+
+          <img src={angularLogo} alt="Angular logo" style={{ height: '80px' }}/>
+        </div>
+        <Typography variant='h4' style={{ color: '#212121', textAlign: 'center' }}>
+          JSON Forms is a JSON Schema based approach for creating forms based on Redux and comes with support for React and Angular.
+        </Typography>
+      </div>
+
+      <div className='landing-page__form'>
+        <Provider store={store}>
+          <Demo
+            js={() => <JsonForms /> }
+            schema={schema}
+            uischema={uischema}
+          />
+        </Provider>
+        </div>
+</Layout>
+  );
+};
+
+export default withStyles(styles)(Home);
