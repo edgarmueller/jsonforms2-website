@@ -17,7 +17,7 @@ import reduxLogo from './index/reduxLogo.svg';
 import angularLogo from './index/angular.svg';
 
 import Layout from "../components/layout"
-import {Demo, Logo} from '../common'
+import {Demo, Logo} from '../components/common'
 import {createJsonFormsStore} from "../common/store";
 import SEO from "../components/seo"
 

@@ -1,0 +1,39 @@
+import React from 'react';
+import { Link } from 'gatsby';
+import {rule} from '@jsonforms/examples';
+import {JsonForms} from '@jsonforms/react';
+import {Provider} from 'react-redux';
+import Typography from "@material-ui/core/Typography";
+import Demo from "../../components/common/Demo";
+import {createJsonFormsStore} from "../../common/store";
+
+const RuleExample = () => {
+
+  const store = createJsonFormsStore({
+    data: rule.data,
+    schema: rule.schema,
+    uischema: rule.uischema
+  });
+
+  return (
+    <div className='example'>
+      <Typography variant='body1'>
+        This example uses a <Link to={'/docs/uischema/rules'} className='link'>Rule</Link> to
+        display an additional selection control if the 'Is Alive' checkbox is unchecked.
+        If is is checked the control will be hidden. Give it a try!
+      </Typography>
+
+      <Provider store={store}>
+        <Demo
+          schema={rule.schema}
+          uischema={rule.uischema}
+          js={() =>
+            <JsonForms />
+          }
+        />
+      </Provider>
+    </div>
+  );
+};
+
+export default RuleExample;

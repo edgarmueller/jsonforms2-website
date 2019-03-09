@@ -32,9 +32,15 @@ main {
   flex: 1 0 auto;
 }
 
-.link {
+a {
   color: rgb(17, 179, 187);
   text-decoration: none;
+}
+
+.doc-link {
+  padding-top: 10;
+  padding-bottom: 10;
+  font-size: 1.25rem
 }
 
 .nav__link {
@@ -185,6 +191,7 @@ p {
   line-height: 1.5;
   font-size: 1.25rem;
   position: fixed;
+  padding: 10px;
 }
 
 .demo__button-bar {

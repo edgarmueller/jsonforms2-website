@@ -2,7 +2,7 @@ import React from 'react';
 
 class PrismAware extends React.Component {
   componentDidMount() {
-    global.Prism.highlightAll();
+    //global.Prism.highlightAll();
   }
 }
 

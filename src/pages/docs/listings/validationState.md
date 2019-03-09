@@ -1,0 +1,2 @@
+errors: ErrorObject[];
+validator: ValidateFunction;
